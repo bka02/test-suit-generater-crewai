@@ -1,0 +1,60 @@
+analyse_story_task:
+  description: >
+    Analyse the following user story and produce a structured breakdown of the
+    actors, goals, business rules, acceptance criteria, and any implicit
+    requirements.
+
+    User story:
+    {user_story}
+  expected_output: >
+    A concise, structured summary of the user story capturing the primary actor,
+    the goal, the main success flow, business rules, and testable acceptance
+    criteria.
+  agent: story_analyst
+
+happy_path_task:
+  description: >
+    Using the analysed story, design happy-path test cases that verify the
+    primary successful flows. Each test case must include a title, description,
+    preconditions, numbered steps with expected results, an overall expected
+    outcome, priority, and relevant tags. Use the category "happy_path".
+  expected_output: >
+    A list of well-structured happy-path test cases covering the main successful
+    scenarios of the user story.
+  agent: happy_path_designer
+
+edge_case_task:
+  description: >
+    Using the analysed story, design boundary and edge-case test cases that probe
+    limits, unusual inputs, expired states, concurrency, and error conditions.
+    Each test case must include a title, description, preconditions, numbered
+    steps with expected results, an overall expected outcome, priority, and
+    relevant tags. Use the category "boundary_edge_case".
+  expected_output: >
+    A list of well-structured boundary and edge-case test cases covering limits,
+    invalid inputs, and unexpected conditions for the user story.
+  agent: edge_case_designer
+
+security_task:
+  description: >
+    Using the analysed story, design security-validation test cases covering
+    common vulnerability classes such as injection, XSS, CSRF, rate limiting,
+    and oversized payloads. Each test case must include a title, description,
+    preconditions, numbered steps with expected results, an overall expected
+    outcome, priority, and relevant tags. Use the category "security_validation".
+  expected_output: >
+    A list of well-structured security-validation test cases covering the most
+    relevant vulnerability classes for the user story.
+  agent: security_designer
+
+assemble_suite_task:
+  description: >
+    Review the happy-path, edge-case, and security test cases produced by the
+    other designers. Remove duplicates, ensure each test case is clear and
+    consistent, and assemble everything into a single test suite. Produce a
+    concise story summary alongside the full list of test cases, conforming
+    exactly to the required schema.
+  expected_output: >
+    A single assembled test suite containing a concise story summary and the
+    complete, de-duplicated list of test cases across all categories.
+  agent: qa_reviewer

@@ -1,0 +1,25 @@
+[project]
+name = "test_suite_crew"
+version = "0.1.0"
+description = "QA Test Suite Crew — generates structured test suites from user stories using CrewAI Flows."
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "crewai[tools]>=1.14.0",
+]
+
+[project.scripts]
+kickoff = "test_suite_crew.main:kickoff"
+run_crew = "test_suite_crew.main:kickoff"
+plot = "test_suite_crew.main:plot"
+run_with_trigger = "test_suite_crew.main:run_with_trigger"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/test_suite_crew"]
+
+[tool.crewai]
+type = "flow"
