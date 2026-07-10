@@ -1,0 +1,23 @@
+[project]
+name = "test-suite-generator"
+version = "0.1.0"
+description = "LLM-powered QA test suite generator that turns user stories into structured JSON test suites (happy path, boundary, security)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "openai>=2.0",
+    "pydantic>=2.0",
+    "tenacity>=9.0",
+    "rich>=14.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=9.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "-v"
