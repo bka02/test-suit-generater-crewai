@@ -1,0 +1,1 @@
+"As a user I want to verify if I need a subscription to watch any content on NOW TV while in London."

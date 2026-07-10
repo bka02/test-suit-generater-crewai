@@ -1,0 +1,365 @@
+{
+  "metadata": {
+    "suite_id": "TS-2DBF704F",
+    "generated_at": "2026-06-05T21:29:56.495822+00:00",
+    "model_used": "gpt-4.1-mini",
+    "story_summary": "User resets password using a one-time password (OTP) sent to their phone.",
+    "total_test_cases": 13,
+    "happy_path_count": 3,
+    "boundary_edge_case_count": 5,
+    "security_validation_count": 5
+  },
+  "user_story": "\"As a user I want to reset my password via OTP on phone.\"",
+  "test_cases": [
+    {
+      "id": "TC-91A758B0",
+      "title": "Successful password reset with valid OTP",
+      "category": "happy_path",
+      "priority": "critical",
+      "description": "Verify that a user can reset their password by entering a valid OTP sent to their registered phone number.",
+      "preconditions": [
+        "User has a registered phone number linked to their account",
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters their registered phone number and requests OTP",
+          "expected_result": "System sends a valid OTP to the user's phone"
+        },
+        {
+          "step_number": 2,
+          "action": "User enters the received OTP and a new valid password",
+          "expected_result": "System validates OTP and accepts the new password"
+        },
+        {
+          "step_number": 3,
+          "action": "User submits the password reset form",
+          "expected_result": "System confirms password reset success and allows user to log in with new password"
+        }
+      ],
+      "expected_outcome": "User successfully resets password using the OTP sent to their phone.",
+      "tags": [
+        "password-reset",
+        "otp",
+        "happy-path"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-4A13711A",
+      "title": "Password reset with OTP resend functionality",
+      "category": "happy_path",
+      "priority": "medium",
+      "description": "Verify that the user can request a resend of the OTP if they did not receive it initially.",
+      "preconditions": [
+        "User has a registered phone number linked to their account",
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User requests OTP for password reset",
+          "expected_result": "System sends OTP to user's phone"
+        },
+        {
+          "step_number": 2,
+          "action": "User does not receive OTP and clicks 'Resend OTP'",
+          "expected_result": "System sends a new OTP to the user's phone"
+        },
+        {
+          "step_number": 3,
+          "action": "User enters the newly received OTP and new password",
+          "expected_result": "System validates OTP and accepts the new password"
+        }
+      ],
+      "expected_outcome": "User can successfully reset password after resending OTP.",
+      "tags": [
+        "password-reset",
+        "otp",
+        "resend-otp",
+        "happy-path"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-E7704164",
+      "title": "Password reset with OTP on different phone number linked to account",
+      "category": "happy_path",
+      "priority": "medium",
+      "description": "Verify that the password reset process works when the user has multiple phone numbers linked and selects the correct one.",
+      "preconditions": [
+        "User has multiple phone numbers linked to their account",
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User selects one of their registered phone numbers and requests OTP",
+          "expected_result": "System sends OTP to the selected phone number"
+        },
+        {
+          "step_number": 2,
+          "action": "User enters the received OTP and new password",
+          "expected_result": "System validates OTP and accepts the new password"
+        },
+        {
+          "step_number": 3,
+          "action": "User submits the password reset form",
+          "expected_result": "System confirms password reset success"
+        }
+      ],
+      "expected_outcome": "User successfully resets password using OTP sent to the selected phone number.",
+      "tags": [
+        "password-reset",
+        "otp",
+        "multi-phone",
+        "happy-path"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-9C4DFA44",
+      "title": "Password reset request with empty phone number input",
+      "category": "boundary_edge_case",
+      "priority": "high",
+      "description": "Verify system behavior when user submits password reset request without entering a phone number.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User submits password reset form with empty phone number field",
+          "expected_result": "System displays validation error indicating phone number is required"
+        }
+      ],
+      "expected_outcome": "Password reset request is rejected with appropriate error message for empty phone number.",
+      "tags": [
+        "password-reset",
+        "input-validation",
+        "empty-input"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-37E6DEA8",
+      "title": "Password reset request with invalid phone number format",
+      "category": "boundary_edge_case",
+      "priority": "high",
+      "description": "Verify system rejects phone numbers that do not conform to expected format.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters invalid phone number format (e.g., letters or special characters) and submits request",
+          "expected_result": "System displays validation error indicating invalid phone number format"
+        }
+      ],
+      "expected_outcome": "Password reset request is rejected due to invalid phone number format.",
+      "tags": [
+        "password-reset",
+        "input-validation",
+        "invalid-format"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-34D558CE",
+      "title": "Password reset with expired OTP",
+      "category": "boundary_edge_case",
+      "priority": "high",
+      "description": "Verify that the system rejects OTPs that have expired.",
+      "preconditions": [
+        "User has requested an OTP",
+        "OTP validity period has elapsed"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters expired OTP and new password",
+          "expected_result": "System rejects OTP and displays expiration error"
+        }
+      ],
+      "expected_outcome": "Password reset fails due to expired OTP with appropriate error message.",
+      "tags": [
+        "password-reset",
+        "otp",
+        "expiration",
+        "boundary-case"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-396E0744",
+      "title": "Password reset with maximum length phone number input",
+      "category": "boundary_edge_case",
+      "priority": "medium",
+      "description": "Verify system behavior when user enters phone number at maximum allowed length.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters phone number with maximum allowed digits and submits request",
+          "expected_result": "System accepts phone number and sends OTP if number is valid"
+        }
+      ],
+      "expected_outcome": "Password reset request processes successfully with maximum length phone number.",
+      "tags": [
+        "password-reset",
+        "input-validation",
+        "boundary-case"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-CE687CE4",
+      "title": "Concurrent OTP requests for password reset",
+      "category": "boundary_edge_case",
+      "priority": "medium",
+      "description": "Verify system handles multiple OTP requests in quick succession gracefully.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User requests OTP multiple times rapidly",
+          "expected_result": "System sends OTPs according to rate limiting policy or queues requests"
+        }
+      ],
+      "expected_outcome": "System enforces rate limits or queues OTP requests to prevent abuse.",
+      "tags": [
+        "password-reset",
+        "otp",
+        "rate-limiting",
+        "concurrency"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-08BD350E",
+      "title": "SQL injection attempt in phone number field",
+      "category": "security_validation",
+      "priority": "critical",
+      "description": "Verify system sanitizes phone number input to prevent SQL injection attacks.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters SQL injection payload in phone number field and submits request",
+          "expected_result": "System rejects input and does not execute malicious SQL commands"
+        }
+      ],
+      "expected_outcome": "System is secure against SQL injection via phone number input.",
+      "tags": [
+        "security",
+        "sql-injection",
+        "input-validation"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-3628A38A",
+      "title": "Cross-site scripting (XSS) attempt in phone number field",
+      "category": "security_validation",
+      "priority": "critical",
+      "description": "Verify system prevents XSS attacks by sanitizing phone number input.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters script tags or XSS payload in phone number field and submits request",
+          "expected_result": "System sanitizes input and does not execute scripts"
+        }
+      ],
+      "expected_outcome": "System is secure against XSS attacks via phone number input.",
+      "tags": [
+        "security",
+        "xss",
+        "input-validation"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-D1666C09",
+      "title": "CSRF protection on password reset form",
+      "category": "security_validation",
+      "priority": "critical",
+      "description": "Verify that the password reset form is protected against Cross-Site Request Forgery attacks.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "Submit password reset form without valid CSRF token",
+          "expected_result": "System rejects the request and displays an error or redirects"
+        }
+      ],
+      "expected_outcome": "Password reset form is protected against CSRF attacks.",
+      "tags": [
+        "security",
+        "csrf",
+        "form-protection"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-66E7AE1B",
+      "title": "Privilege escalation attempt via OTP reuse",
+      "category": "security_validation",
+      "priority": "critical",
+      "description": "Verify system prevents reuse of OTPs to avoid privilege escalation or unauthorized password resets.",
+      "preconditions": [
+        "User has successfully reset password using an OTP"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User attempts to reuse the same OTP to reset password again",
+          "expected_result": "System rejects OTP reuse and denies password reset"
+        }
+      ],
+      "expected_outcome": "System prevents OTP reuse to avoid privilege escalation.",
+      "tags": [
+        "security",
+        "otp",
+        "privilege-escalation"
+      ],
+      "notes": null
+    },
+    {
+      "id": "TC-15DF080C",
+      "title": "Oversized payload in phone number field",
+      "category": "security_validation",
+      "priority": "medium",
+      "description": "Verify system handles excessively long input in phone number field without crashing or exposing vulnerabilities.",
+      "preconditions": [
+        "User is on the password reset page"
+      ],
+      "steps": [
+        {
+          "step_number": 1,
+          "action": "User enters an excessively long string in phone number field and submits request",
+          "expected_result": "System rejects input with validation error or truncates input safely"
+        }
+      ],
+      "expected_outcome": "System handles oversized payloads securely and gracefully.",
+      "tags": [
+        "security",
+        "input-validation",
+        "oversized-payload"
+      ],
+      "notes": null
+    }
+  ]
+}
